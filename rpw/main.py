@@ -63,6 +63,8 @@ class Form(QWidget):
         drugformat_label = QLabel("Format of the drug information")
         self.date = QLineEdit("MM/dd/yyyy")
         date_label = QLabel("Date format")
+        self.machine = QLineEdit("Machine name")
+        machine_label = QLabel("Machine the file is from")
         buttons = QHBoxLayout()
 
         ok_button.clicked.connect(self.export_parser)
@@ -86,6 +88,8 @@ class Form(QWidget):
         mainLayout.addWidget(drugformat_label, 3, 1)
         mainLayout.addWidget(self.date, 4, 0)
         mainLayout.addWidget(date_label, 4, 1)
+        mainLayout.addWidget(self.machine, 5, 0)
+        mainLayout.addWidget(machine_label, 5, 1)
  
         self.setLayout(mainLayout)
         self.setWindowTitle(u"RevealerParserWizard")
@@ -105,7 +109,7 @@ class Form(QWidget):
             no_entries.exec_()
             return
         for i in xrange(0, element_num):
-            extracted_elements.append(self.selected_elements.item(i).text())
+            extracted_elements.append(self.selected_elements.item(i).text() + 1)
         
         # Act like a clown and get knocked down
         if int(self.drugs.text()) < 1:
@@ -174,8 +178,10 @@ class Form(QWidget):
         u'''
         Provide information about the program in a QMessageBox.
         '''
-        QMessageBox.information(self, u"About RevealerParserWizard", u"aBaJ! I have" +
-         u"n't filled this in yet!")
+        QMessageBox.information(self, u"About RevealerParserWizard", u"RevealerParserWizard 1.0b" +
+         "\n" + u"A program to generate custom parser files for MDRevealer" + "\n" +
+         u"Copyright (C) 2015 Sean Clifford" + "\n" + "Available under GPLv3+")
+        
         
     def insert_blank_line(self):
         u'''
